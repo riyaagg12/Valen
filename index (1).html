@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>For My Valentine ❤️</title>
+
+  <!-- Confetti -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --pink1:#ff9ecb;
+      --pink2:#ffcce6;
+      --accent:#ff2e7a;
+      --dark:#2d2d2d;
+    }
+
+    *{box-sizing:border-box}
+
+    body{
+      margin:0;
+      font-family:'Poppins',sans-serif;
+      min-height:100svh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      background:linear-gradient(135deg,var(--pink1),var(--pink2));
+      overflow:hidden;
+    }
+
+    .container{
+      width:min(800px,95vw);
+      background:white;
+      border-radius:25px;
+      padding:30px 25px 40px;
+      text-align:center;
+      box-shadow:0 20px 60px rgba(0,0,0,.15);
+      position:relative;
+    }
+
+    h1{
+      margin:0 0 10px;
+      font-weight:800;
+      color:var(--accent);
+    }
+
+    .slide{
+      display:none;
+      animation:fade .6s ease;
+    }
+
+    .slide.active{display:block}
+
+    p{
+      font-size:18px;
+      line-height:1.6;
+      color:var(--dark);
+      margin:15px 0 25px;
+    }
+
+    button{
+      padding:14px 24px;
+      border:none;
+      border-radius:50px;
+      font-size:16px;
+      font-weight:600;
+      cursor:pointer;
+      transition:.2s;
+      margin:5px;
+    }
+
+    .nextBtn{
+      background:var(--accent);
+      color:white;
+    }
+
+    .nextBtn:hover{transform:scale(1.05)}
+
+    .yes{
+      background:var(--accent);
+      color:white;
+    }
+
+    .no{
+      background:#eee;
+    }
+
+    .heart{
+      font-size:60px;
+      animation:beat 1s infinite;
+    }
+
+    canvas{
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      z-index:999;
+    }
+
+    @keyframes fade{
+      from{opacity:0;transform:translateY(15px)}
+      to{opacity:1;transform:translateY(0)}
+    }
+
+    @keyframes beat{
+      0%,100%{transform:scale(1)}
+      50%{transform:scale(1.15)}
+    }
+  </style>
+</head>
+
+<body>
+
+<canvas id="confetti"></canvas>
+
+<div class="container">
+
+  <!-- Slide 1 -->
+  <div class="slide active">
+    <h1>Hey Luvvu ❤️</h1>
+    <p>I made something special for you today...</p>
+    <button class="nextBtn" onclick="nextSlide()">Tap to Continue ✨</button>
+  </div>
+
+  <!-- Slide 2 -->
+  <div class="slide">
+    <div class="heart">💖</div>
+    <p>You make my days brighter, my smile bigger, and my heart happier.</p>
+    <button class="nextBtn" onclick="nextSlide()">Next 💕</button>
+  </div>
+
+  <!-- Slide 3 -->
+  <div class="slide">
+    <p>Every moment with you feels magical. I’m so lucky to have you in my life.</p>
+    <button class="nextBtn" onclick="nextSlide()">One More Thing… 💌</button>
+  </div>
+
+  <!-- Slide 4 (Final Question) -->
+  <div class="slide">
+    <h1>Will you be my Valentine? 💘</h1>
+    <button class="yes" onclick="sayYes()">Yes 😍</button>
+    <button class="no" id="noBtn">No 🙈</button>
+  </div>
+
+  <!-- Final Celebration Slide -->
+  <div class="slide" id="celebration">
+    <h1>YAYYY!!! 🎉</h1>
+    <p>You just made me the happiest person alive ❤️</p>
+    <div class="heart">💞</div>
+  </div>
+
+</div>
+
+<script>
+  const slides=document.querySelectorAll('.slide');
+  let current=0;
+
+  function nextSlide(){
+    slides[current].classList.remove('active');
+    current++;
+    slides[current].classList.add('active');
+  }
+
+  const noBtn=document.getElementById('noBtn');
+  noBtn?.addEventListener('mouseover',()=>{
+    noBtn.style.position='absolute';
+    noBtn.style.left=Math.random()*60+'%';
+    noBtn.style.top=Math.random()*60+'%';
+  });
+
+  const confettiCanvas=document.getElementById('confetti');
+  const myConfetti=confetti.create(confettiCanvas,{resize:true});
+
+  function sayYes(){
+    slides[current].classList.remove('active');
+    document.getElementById('celebration').classList.add('active');
+
+    myConfetti({
+      particleCount:300,
+      spread:120,
+      origin:{y:0.6}
+    });
+  }
+</script>
+
+</body>
+</html>
