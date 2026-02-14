@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Valentine ❤️</title>
+
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
+
+<style>
+body{
+  margin:0;
+  font-family:'Poppins',sans-serif;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  height:100vh;
+  background:linear-gradient(135deg,#ff9ecb,#ffcce6);
+}
+
+.container{
+  width:90%;
+  max-width:700px;
+  background:white;
+  padding:30px;
+  border-radius:20px;
+  text-align:center;
+  box-shadow:0 15px 40px rgba(0,0,0,0.15);
+}
+
+.slide{display:none;}
+.slide.active{display:block;}
+
+h1{color:#ff2e7a;margin-bottom:10px;}
+p{font-size:18px;color:#333;}
+
+button{
+  padding:12px 22px;
+  margin:8px;
+  border:none;
+  border-radius:40px;
+  font-size:16px;
+  cursor:pointer;
+}
+
+.next{background:#ff2e7a;color:white;}
+.yes{background:#ff2e7a;color:white;}
+.no{background:#eee;position:relative;}
+
+.heart{
+  font-size:60px;
+  animation:beat 1s infinite;
+}
+
+@keyframes beat{
+  0%,100%{transform:scale(1)}
+  50%{transform:scale(1.15)}
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+
+<div class="slide active">
+  <h1>Hey Luvvu ❤️</h1>
+  <p>I made something special for you today...</p>
+  <button class="next" onclick="nextSlide()">Continue ✨</button>
+</div>
+
+<div class="slide">
+  <div class="heart">💖</div>
+  <p>You make my world brighter and my heart happier.</p>
+  <button class="next" onclick="nextSlide()">Next 💕</button>
+</div>
+
+<div class="slide">
+  <p>I am so lucky to have you in my life.</p>
+  <button class="next" onclick="nextSlide()">One Last Question… 💌</button>
+</div>
+
+<div class="slide">
+  <h1>Will you be my Valentine? 💘</h1>
+  <button class="yes" onclick="sayYes()">Yes 😍</button>
+  <button class="no" id="noBtn">No 🙈</button>
+</div>
+
+<div class="slide" id="celebrate">
+  <h1>YAYYYY!!! 🎉</h1>
+  <p>You just made me the happiest person alive ❤️</p>
+  <div class="heart">💞</div>
+</div>
+
+</div>
+
+<script>
+let slides=document.querySelectorAll('.slide');
+let current=0;
+
+function nextSlide(){
+  if(current < slides.length-1){
+    slides[current].classList.remove('active');
+    current++;
+    slides[current].classList.add('active');
+  }
+}
+
+let noBtn=document.getElementById('noBtn');
+noBtn.addEventListener('mouseover',function(){
+  noBtn.style.position='absolute';
+  noBtn.style.left=Math.random()*60+'%';
+  noBtn.style.top=Math.random()*60+'%';
+});
+
+function sayYes(){
+  slides[current].classList.remove('active');
+  document.getElementById('celebrate').classList.add('active');
+
+  confetti({
+    particleCount:250,
+    spread:120,
+    origin:{y:0.6}
+  });
+}
+</script>
+
+</body>
+</html>
